@@ -1,3 +1,4 @@
+const { query } = require("express");
 const mongoose = require("mongoose");
 const User = require("../modals/userModal");
 
@@ -49,6 +50,20 @@ const userController = {
       const data = await User.find({});
       res.send(data);
     } catch (error) {
+      res.status(200).json({
+        message: error.message,
+      });
+    }
+  },
+  adminUser:async(req,res)=>{
+    try{
+      const email = req.params.email;
+      console.log(email)
+      const query = {email}
+      const user = await User.findOne(query);
+      console.log(user)
+      res.send(user)
+    }catch (error) {
       res.status(200).json({
         message: error.message,
       });
